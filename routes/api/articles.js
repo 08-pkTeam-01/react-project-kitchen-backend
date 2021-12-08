@@ -199,7 +199,6 @@ router.post('/:article/favorite', auth.required, function(req, res, next) {
 
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
-
     return user.favorite(articleId).then(function(){
       return req.article.updateFavoriteCount().then(function(article){
         return res.json({article: article.toJSONFor(user)});
